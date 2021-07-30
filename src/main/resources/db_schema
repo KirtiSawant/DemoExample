@@ -1,0 +1,32 @@
+CREATE TABLE Branch (
+  branchId int(11) NOT NULL AUTO_INCREMENT,
+  branchName varchar(100) NOT NULL,
+  description varchar(200) DEFAULT NULL,
+  PRIMARY KEY (branchId)
+);
+
+CREATE TABLE `STUDENT` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FIRST_NAME` varchar(45) DEFAULT NULL,
+  `LAST_NAME` varchar(45) DEFAULT NULL,
+  `CONTACT_NO` varchar(45) DEFAULT NULL,
+  `BRANCH_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `BRANCH_ID_FK`
+    FOREIGN KEY (`BRANCH_ID`)
+    REFERENCES `BRANCH` (`BRANCH_ID`)
+);
+
+CREATE TABLE Employee (
+  id int NOT NULL AUTO_INCREMENT,
+  firstName varchar(100) NOT NULL,
+  lastName varchar(200) NOT NULL,
+  dob Date NOT NULL,
+  age int NOT NULL,
+  designation varchar(200) NOT NULL,
+  salary double NOT NULL,
+  dateOfJoining Date NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
