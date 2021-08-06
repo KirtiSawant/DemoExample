@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 
 @Data
 @Table("College")
@@ -14,13 +17,14 @@ public class College {
     private int id;
 
     @Column("college_name")
-    // @NotBlank(message = "Please provide first Name")
+    @NotBlank(message = "Please provide collegeName")
     private String collegeName;
 
-    //  @NotBlank(message = "Please provide last Name")
+    @NotBlank(message = "Please provide place")
     @Column("place")
     private String place;
-
+    @NotBlank
+    @Min(value = 1, message = "required")
     @Column("college_code")
     private String clgCode;
 

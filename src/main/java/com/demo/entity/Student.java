@@ -21,6 +21,10 @@ public class Student {
     @Column("CONTACT_NO")
     private String contactNo;
 
+    public Student(int id, String FirstName, String LastName, String ContactNo) {
+    }
+
+
     public Long getId() {
         return id;
     }

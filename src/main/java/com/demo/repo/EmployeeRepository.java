@@ -11,5 +11,5 @@ public interface EmployeeRepository extends PagingAndSortingRepository<Employee,
 
     Page<Employee> findByFirstName(String firstName, Pageable paging);
 
-    Page<Employee> findByFirstNameAndLastName(String firstName, String lastName, Pageable paging);
+    //Page<Employee> findByFirstName(String firstName, String lastName, Pageable paging);
 }

@@ -5,24 +5,35 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
 @Table("Emp")
 public class Employee {
     @Id
-    private  int id;
+    private int id;
+    @NotBlank(message = "FirstName is Required")
     @Column("firstName")
     private String firstName;
+
+    @NotBlank(message = "LastName is Required")
     @Column("lastName")
     private String lastName;
+
     @Column("dob")
     private Date dateOfBirth;
+
     private Integer age;
+
+    @NotBlank(message = "designation is required")
     private String designation;
+
+
     private double salary;
-   // @Column("dateOfJoining")
-   @org.springframework.data.annotation.Transient // to not persist into DB (just to expose to view/client)
+
+    @Column("dateOfJoining")
+//   @org.springframework.data.annotation.Transient // to not persist into DB (just to expose to view/client)
     private Date dateOfJoining;
 
     public Employee(int id, String firstName, String lastName, Date dateOfBirth, Integer age, String designation, double salary, Date dateOfJoining) {
@@ -34,6 +45,10 @@ public class Employee {
         this.designation = designation;
         this.salary = salary;
         this.dateOfJoining = dateOfJoining;
+    }
+
+
+    public Employee(int id, String firstName, String lastName, int dateOfBirth, int age, String designation, int salary, int dateOfJoining) {
     }
 
     public int getId() {

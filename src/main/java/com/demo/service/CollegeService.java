@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class CollegeService {
         } else if (direction.equals("desc")) {
             return Sort.Direction.DESC;
         }
-
         return Sort.Direction.ASC;
     }
 
@@ -32,17 +30,25 @@ public class CollegeService {
         return this.collegeRepository.save(college);
     }
 
-    public List<College> search( String collegeName, String place,Integer pageNo, Integer pageSize) {
-       // List<College> findByCollegeNameOrderByCollegeNameAscplaceDesc(String collegeName)
-        Pageable paging = PageRequest.of(pageNo, pageSize);
+    public List<College> search(String place, Integer pageNo, Integer pageSize, String[] sort) {
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        if (sort[0].contains(",")) {
+            for (String sortOrder : sort) {
+                String[] _sort = sortOrder.split(",");
+                orders.add(new Sort.Order(getSortDirection(_sort[1]), _sort[0]));
+            }
+        } else {
+            orders.add(new Sort.Order(getSortDirection(sort[1]), sort[0]));
+        }
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(orders));
         Page<College> pageResult;
-        if (collegeName == null && place ==null)
+        if (place == null)
             pageResult = collegeRepository.findAll(paging);
         else
-            pageResult = collegeRepository.findByCollegeNameAndPlace(collegeName,place,paging);
+            pageResult = collegeRepository.findByPlace(place, paging);
 
         if (pageResult.hasContent()) {
-            return  pageResult.getContent();
+            return pageResult.getContent();
         } else {
             return new ArrayList<College>();
         }

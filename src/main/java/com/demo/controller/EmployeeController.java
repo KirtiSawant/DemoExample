@@ -5,6 +5,7 @@ import com.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping("employee")
-    public Employee createEmployee(@RequestBody Employee employee){
+    public Employee createEmployee(@Valid @RequestBody Employee employee) {
         return this.employeeService.createEmployee(employee);
     }
 
@@ -25,12 +26,11 @@ public class EmployeeController {
     }
 
     @GetMapping("employee/search")
-    public List<Employee> getAllEmp(@RequestParam (required = false)String firstName,
-                                    @RequestParam (required = false)String lastName,
-                                    @RequestParam (defaultValue = "0")Integer page,
-                                    @RequestParam (defaultValue = "5")Integer size,
-                                    @RequestParam (defaultValue = "salary")String sortBy) {
-        return employeeService.getAllEmp(firstName,lastName,page,size,sortBy);
+    public List<Employee> getAllEmp(@RequestParam(required = false) String firstName,
+                                    @RequestParam(defaultValue = "0") Integer page,
+                                    @RequestParam(defaultValue = "5") Integer size,
+                                    @RequestParam(defaultValue = "salary") String[] sortBy) {
+        return employeeService.getAllEmp(firstName, page, size, sortBy);
     }
 
         @GetMapping("employee/{id}")
