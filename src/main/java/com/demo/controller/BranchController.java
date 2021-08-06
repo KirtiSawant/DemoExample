@@ -12,8 +12,10 @@ public class BranchController {
 
     @Autowired
     BranchService branchService;
+
     @PostMapping("branch")
-    public Branch createBranch(@RequestBody Branch branch){
+    public Branch createBranch(@RequestBody Branch branch) {
+        System.out.println("branch = " + branch);
         return branchService.createBranch(branch);
     }
 }
